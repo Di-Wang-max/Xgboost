@@ -42,6 +42,8 @@ if st.button("Submit"):
     features = np.hstack((input_numerical[:, 0:3], input_categorical[:, 0:1], 
                                 input_numerical[:, 3:7], input_categorical[:, 1:],
                                 input_numerical[:, 7:]))
+    feature_names  = ["age", "D3Dimer", "D5Dimer","Differentiation","FDP","PREDimer","PrevWF","TT","anticoagulation","lymphocyte","vWFD1","vWFD3"]
+    features_named = pd.DataFrame(features, columns=feature_names)
     # 使用模型进行预测概率
     prediction_proba = XGB.predict_proba(combined_input)
     target_class_proba = prediction_proba[:, 1]
@@ -60,7 +62,7 @@ if st.button("Submit"):
     st.write("### SHAP Value Force Plot")
     shap.initjs()
     force_plot_visualizer = shap.plots.force(
-        explainer.expected_value, shap_values, features)
+        explainer.expected_value, shap_values, features_named)
     # 将 force_plot 保存为一个临时 HTML 文件
     shap.save_html("force_plot.html", force_plot_visualizer)
 
