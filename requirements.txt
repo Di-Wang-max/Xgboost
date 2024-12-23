@@ -3,5 +3,5 @@ joblib
 numpy
 pandas
 shap
-sklearn
+scikit-learn
 xgboost
